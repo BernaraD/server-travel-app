@@ -1,5 +1,6 @@
 const HttpError = require("../models/http-error");
 const { uuid } = require('uuidv4');
+const { validationResult } = require('express-validator');
 
 let DUMMY_PLACES = [
     {
@@ -57,11 +58,18 @@ const getPlacesByUserId = (req, res, next) => {
 }
 
 const createPlace = (req, res, next) => {
+//Validation-result is a function, will look into this request to detect validation errors
+   const validationErrors = validationResult(req);
+
+   if (!validationErrors.isEmpty()){
+       console.log(validationErrors);
+       res.status(422)
+       throw new HttpError(`Invalid inputs passed`, 422)
+   }
+
     const { title, description, coordinates, address, creator } = req.body;
     //const title = req.body.title -
     // the above code is a shortcut for this line, with object destructuring.
-
-
 
     const createdPlace = {
         id: uuid(),
@@ -78,6 +86,13 @@ const createPlace = (req, res, next) => {
 }
 
 const updatePlaceById = (req, res, next) => {
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()){
+        console.log(validationErrors);
+        res.status(422)
+        throw new HttpError(`Invalid inputs passed`, 422)
+    }
+
     const { title, description } = req.body;
     const placeId = req.params.pid;
 
@@ -97,6 +112,9 @@ const updatePlaceById = (req, res, next) => {
 
 const deletePlaceById = (req, res, next) => {
     const placeId = req.params.pid;
+    if (!DUMMY_PLACES.find(place => place.id === placeId)){
+        throw new HttpError(`Could not find place for this id`, 404)
+    }
 
     DUMMY_PLACES = DUMMY_PLACES.filter(p => p.id !== placeId);
 
