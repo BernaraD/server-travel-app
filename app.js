@@ -33,8 +33,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
-
 app.use('/api/places', placesRoutes); // => /api/places/...
 app.use('/api/users', usersRoutes);
 

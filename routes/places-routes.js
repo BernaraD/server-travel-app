@@ -1,12 +1,17 @@
 const express = require('express');
-const router = express.Router();
 const {check} = require('express-validator');
 
 const placesController = require('../controllers/places-controllers');
 const fileUpload = require('../middleware/file-upload');
+const checkAuth = require('../middleware/check-auth');
+
+const router = express.Router();
 
 router.get('/:pid',  placesController.getPlaceById);
 router.get('/user/:uid', placesController.getPlacesByUserId);
+
+//Middleware to authenticate with JWT token
+router.use(checkAuth);
 
 //Validator Express .not().isEmpty() middleware
 router.post(
