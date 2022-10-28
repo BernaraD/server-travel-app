@@ -61,5 +61,5 @@ app.use((error,req, res, next) => {
 
 app.listen(PORT, () => {
     connnectToMongoDB();
-    console.log(`Server is listening on port ${PORT}....`);
+    console.log(`Server is listening on port ${PORT}`);
 });
