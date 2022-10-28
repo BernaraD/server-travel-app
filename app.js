@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const connectToMongoDB = require("./db/mongo");
+const connnectToMongoDB = require("./db/mongo");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -8,8 +8,8 @@ const bodyParser = require("body-parser");
 const placesRoutes = require('./routes/places-routes');
 const usersRoutes = require('./routes/users-routes');
 const HttpError = require("./models/http-error");
-
 const logger = require("morgan");
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -60,7 +60,6 @@ app.use((error,req, res, next) => {
 
 
 app.listen(PORT, () => {
-    connectToMongoDB();
-
+    connnectToMongoDB();
     console.log(`Server is listening on port ${PORT}....`);
 });
