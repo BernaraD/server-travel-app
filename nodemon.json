@@ -1,0 +1,9 @@
+{
+  "env": {
+    "DB_USER": "Bernara",
+    "DB_PASSWORD": "Summer2022",
+    "DB_NAME": "test",
+    "GOOGLE_API_KEY": "AIzaSyCGnSfqXekLkINYPYYDTXkm-HEpOx8JVtU",
+    "JWT_KEY": "supersecret_dont_share"
+  }
+}
